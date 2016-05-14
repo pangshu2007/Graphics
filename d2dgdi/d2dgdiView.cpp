@@ -185,6 +185,13 @@ void Cd2dgdiView::OnGraphicsDraw(Utility::CGraphics& gs)
 			rcf.X += width;
 		}
 	}
+
+	gs.SetLineColor(Utility::Color::Aqua);
+	gs.DrawEllipse(10, 20, 30, 40);
+
+	gs.SetLineColor(Utility::Color::Chocolate);
+	gs.SetLineWidth(10.0f);
+	gs.DrawRectangle(100, 200, 100, 100);
 }
 
 

@@ -182,10 +182,12 @@ namespace Utility
 		virtual void SetLineAlignment(StringAlignment align) = 0;
 
 	public:
-		virtual void DrawString(const CString& szText, float left, float top, float width, float height) = 0;
-		virtual void DrawRectangle(float left, float top, float width, float height) = 0;
+		virtual void DrawString(const CString& szText, float x, float y, float width, float height) = 0;
+		virtual void DrawRectangle(float x, float y, float width, float height) = 0;
 		virtual void DrawLine(float x1,float y1,float x2,float y2) = 0;
-		virtual void FillRectangle(float left, float top, float width, float height) = 0;
+		virtual void DrawEllipse(float x, float y, float width, float height) = 0;
+		virtual void FillRectangle(float x, float y, float width, float height) = 0;
+		virtual void FillEllipse(float x, float y, float width, float height) = 0;
 		virtual void Clear(unsigned long color) = 0;
 	};
 
@@ -214,13 +216,17 @@ namespace Utility
 
 	public:
 		// ªÊ÷∆Œƒ◊÷
-		virtual void DrawString(const CString& szText, float left, float top, float width, float height);
+		virtual void DrawString(const CString& szText, float x, float y, float width, float height);
 		// ªÊ÷∆æÿ–Œ
-		virtual void DrawRectangle(float left, float top, float width, float height);
+		virtual void DrawRectangle(float x, float y, float width, float height);
 		// ªÊ÷∆÷±œﬂ
 		virtual void DrawLine(float x1, float y1, float x2, float y2);
+		// ªÊ÷∆Õ÷‘≤
+		virtual void DrawEllipse(float x, float y, float width, float height);
 		// ÃÓ≥‰æÿ–Œ
-		virtual void FillRectangle(float left, float top, float width, float height);
+		virtual void FillRectangle(float x, float y, float width, float height);
+		// ÃÓ≥‰Õ÷‘≤
+		virtual void FillEllipse(float x, float y, float width, float height);
 		// «Âø’∆¡ƒª
 		virtual void Clear(unsigned long color);
 

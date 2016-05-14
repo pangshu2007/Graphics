@@ -123,14 +123,14 @@ namespace Utility
 		}
 
 	public:
-		virtual void DrawString(const CString& szText, float left, float top, float width, float height)
+		virtual void DrawString(const CString& szText, float x, float y, float width, float height)
 		{
-			m_pRenderTarget->DrawText(szText, CD2DRectF(left, top, left + width, top + height), m_pTextBrush, m_pTextFormat);
+			m_pRenderTarget->DrawText(szText, CD2DRectF(x, y, x + width, y + height), m_pTextBrush, m_pTextFormat);
 		}
 
-		virtual void DrawRectangle(float left, float top, float width, float height)
+		virtual void DrawRectangle(float x, float y, float width, float height)
 		{
-			m_pRenderTarget->DrawRectangle(CD2DRectF(left, top, left + width, top + height), m_pLineBrush, m_lineWidth);
+			m_pRenderTarget->DrawRectangle(CD2DRectF(x, y, x + width, y + height), m_pLineBrush, m_lineWidth);
 		}
 
 		virtual void DrawLine(float x1, float y1, float x2, float y2)
@@ -138,9 +138,19 @@ namespace Utility
 			m_pRenderTarget->DrawLine(CD2DPointF(x1, y1), CD2DPointF(x2, y2), m_pLineBrush, m_lineWidth);
 		}
 
-		virtual void FillRectangle(float left, float top, float width, float height)
+		virtual void DrawEllipse(float x, float y, float width, float height)
 		{
-			m_pRenderTarget->FillRectangle(CD2DRectF(left, top, left + width, top + height), m_pFillBrush);
+			m_pRenderTarget->DrawEllipse(CD2DEllipse(CD2DRectF(x, y, x + width, y + height)), m_pLineBrush, m_lineWidth);
+		}
+
+		virtual void FillRectangle(float x, float y, float width, float height)
+		{
+			m_pRenderTarget->FillRectangle(CD2DRectF(x, y, x + width, y + height), m_pFillBrush);
+		}
+
+		virtual void FillEllipse(float x, float y, float width, float height)
+		{
+			m_pRenderTarget->FillEllipse(CD2DEllipse(CD2DRectF(x, y, x + width, y + height)), m_pFillBrush);
 		}
 
 		virtual void Clear(unsigned long color)
@@ -228,14 +238,14 @@ namespace Utility
 		}
 
 	public:
-		virtual void DrawString(const CString& szText, float left, float top, float width, float height)
+		virtual void DrawString(const CString& szText, float x, float y, float width, float height)
 		{
-			m_gs.DrawString(szText.GetString(), -1, m_pFont, Gdiplus::RectF(left, top, width, height), &m_sFormat, &m_textBrush);
+			m_gs.DrawString(szText.GetString(), -1, m_pFont, Gdiplus::RectF(x, y, width, height), &m_sFormat, &m_textBrush);
 		}
 
-		virtual void DrawRectangle(float left, float top, float width, float height)
+		virtual void DrawRectangle(float x, float y, float width, float height)
 		{
-			m_gs.DrawRectangle(&m_linePen, left, top, width, height);
+			m_gs.DrawRectangle(&m_linePen, x, y, width, height);
 		}
 
 		virtual void DrawLine(float x1, float y1, float x2, float y2)
@@ -243,9 +253,19 @@ namespace Utility
 			m_gs.DrawLine(&m_linePen, x1, y1, x2, y2);
 		}
 
-		virtual void FillRectangle(float left, float top, float width, float height)
+		virtual void DrawEllipse(float x, float y, float width, float height)
 		{
-			m_gs.FillRectangle(&m_fillBrush, left, top, width, height);
+			m_gs.DrawEllipse(&m_linePen, x, y, width, height);
+		}
+
+		virtual void FillRectangle(float x, float y, float width, float height)
+		{
+			m_gs.FillRectangle(&m_fillBrush, x, y, width, height);
+		}
+
+		virtual void FillEllipse(float x, float y, float width, float height)
+		{
+			m_gs.FillEllipse(&m_fillBrush, x, y, width, height);
 		}
 
 		virtual void Clear(unsigned long color)
@@ -322,14 +342,14 @@ namespace Utility
 		m_context->SetLineAlignment(align);
 	}
 
-	void CGraphics::DrawString(const CString& szText, float left, float top, float width, float height)
+	void CGraphics::DrawString(const CString& szText, float x, float y, float width, float height)
 	{
-		m_context->DrawString(szText, left, top, width, height);
+		m_context->DrawString(szText, x, y, width, height);
 	}
 
-	void CGraphics::DrawRectangle(float left, float top, float width, float height)
+	void CGraphics::DrawRectangle(float x, float y, float width, float height)
 	{
-		m_context->DrawRectangle(left, top, width, height);
+		m_context->DrawRectangle(x, y, width, height);
 	}
 
 	void CGraphics::DrawLine(float x1, float y1, float x2, float y2)
@@ -337,9 +357,19 @@ namespace Utility
 		m_context->DrawLine(x1, y1, x2, y2);
 	}
 
-	void CGraphics::FillRectangle(float left, float top, float width, float height)
+	void CGraphics::DrawEllipse(float x, float y, float width, float height)
 	{
-		m_context->FillRectangle(left, top, width, height);
+		m_context->DrawEllipse(x, y, width, height);
+	}
+
+	void CGraphics::FillRectangle(float x, float y, float width, float height)
+	{
+		m_context->FillRectangle(x, y, width, height);
+	}
+
+	void CGraphics::FillEllipse(float x, float y, float width, float height)
+	{
+		m_context->FillEllipse(x, y, width, height);
 	}
 
 	void CGraphics::Clear(unsigned long color)
